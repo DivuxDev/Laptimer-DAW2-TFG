@@ -1,0 +1,150 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+// Example usage
+
+.button-create {
+    background-color: $crud-create;
+    color: white;
+}
+.button-create:hover {
+    background-color: green;
+}
+
+.button-read {
+    background-color: $crud-read;
+    color: white;
+}
+
+.button-update {
+    background-color: $crud-update;
+    color: white;
+
+}
+
+.button-delete {
+    background-color: $crud-delete;
+    color: white;
+
+}
+
+/* Estilo general para la tabla */
+.dataTables_wrapper {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+table.dataTable {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    background-color: #fff;
+    margin: 20px 0;
+}
+
+table.dataTable thead {
+    background-color: #b31217;
+    color: white;
+}
+
+table.dataTable thead th {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+table.dataTable tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+table.dataTable tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+table.dataTable tbody td {
+    padding: 10px;
+}
+
+/* Estilo de la paginación */
+.dataTables_paginate {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.dataTables_paginate .paginate_button {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 2px;
+    background-color: #e52d27;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dataTables_paginate .paginate_button:hover {
+    background-color: #b31217;
+}
+
+.dataTables_paginate .paginate_button.current {
+    background-color: #b31217;
+    font-weight: bold;
+}
+
+.dataTables_paginate .paginate_button.disabled {
+    background-color: #e0e0e0;
+    color: #999;
+    cursor: not-allowed;
+}
+
+/* Estilo del filtro de búsqueda */
+.dataTables_filter {
+    margin-bottom: 20px;
+}
+
+.dataTables_filter label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dataTables_filter input {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Estilo del selector de longitud de página */
+.dataTables_length {
+    margin-bottom: 20px;
+}
+
+.dataTables_length label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dataTables_length select {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Estilo del procesamiento */
+.dataTables_processing {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+}

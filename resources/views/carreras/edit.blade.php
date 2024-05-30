@@ -1,0 +1,109 @@
+@extends('layouts.plantilla')
+@section('titulo', 'Editar carrera')
+@section('contenido')
+<h1 class="text-center my-4">Editar carrera</h1>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+@if ($errors->any())
+    <div class="alert alert-danger" role="alert">
+        <strong>Hubo errores en el formulario:</strong>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+<div class="container">
+    <form action="{{ route('carreras.update', $carrera) }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+        @csrf
+        @method('PUT')
+
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre de la carrera:</label>
+            <input type="text" id="nombre" name="nombre" class="form-control" value="{{ old('nombre', $carrera->nombre) }}" required>
+            <div class="invalid-feedback">
+                Por favor, ingrese el nombre de la carrera.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="vueltas" class="form-label">Vueltas:</label>
+            <input type="number" min="0" max="999" id="vueltas" name="vueltas" class="form-control" value="{{ old('vueltas', $carrera->vueltas) }}" required>
+            <div class="invalid-feedback">
+                Por favor, ingrese el número de vueltas.
+            </div>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" id="en_curso" name="en_curso" value="true" class="form-check-input" {{ $carrera->en_curso ? 'checked' : '' }}>
+            <label for="en_curso" class="form-check-label">En curso</label>
+        </div>
+
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" class="form-control" value="{{ old('fecha', $carrera->fecha) }}" required>
+            <div class="invalid-feedback">
+                Por favor, seleccione una fecha.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="dispositivo_id" class="form-label">Dispositivo:</label>
+            <select name="dispositivo_id" id="dispositivo_id" class="form-select" required>
+                @foreach ($dispositivos as $dispositivo)
+                    <option value="{{ $dispositivo->id }}" {{ $dispositivo->id == old('dispositivo_id', $carrera->dispositivo_id) ? 'selected' : '' }}>{{ $dispositivo->nombre }}</option>
+                @endforeach
+            </select>
+            <div class="invalid-feedback">
+                Por favor, seleccione un dispositivo.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="jugadores" class="form-label">Select Users:</label>
+            <select name="jugadores[]" id="jugadores" class="form-control" multiple="multiple" required>
+                @foreach($jugadores as $jugador)
+                    <option value="{{ $jugador->id }}" {{ in_array($jugador->id, old('jugadores', $jugadoresParticipantes)) ? 'selected' : '' }}>{{ $jugador->nombre }}</option>
+                @endforeach
+            </select>
+            <div class="invalid-feedback">
+                Por favor, seleccione al menos un jugador.
+            </div>
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#jugadores').select2();
+    });
+
+    // Bootstrap form validation
+    (function () {
+        'use strict'
+
+        var forms = document.querySelectorAll('.needs-validation')
+
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+@endsection
