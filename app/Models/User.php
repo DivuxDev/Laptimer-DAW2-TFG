@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Carrera;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
@@ -102,5 +103,13 @@ class User extends Authenticatable
     public function dispositivos()
     {
         return $this->hasMany(Dispositivo::class,'usuario_id');
+    }
+
+    public function carreras(){
+
+       return Carrera::join('dispositivos', 'carreras.dispositivo_id', '=', 'dispositivos.id')
+                        ->where('dispositivos.usuario_id',auth()->user()->id)
+                        ->select('carreras.*')
+                        ->get();
     }
 }

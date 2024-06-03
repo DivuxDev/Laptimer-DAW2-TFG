@@ -5,6 +5,7 @@ use App\Http\Controllers\RestApiController;
 use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\JugadorController;
 use App\Http\Controllers\CocheController;
+use App\Http\Controllers\EquipoController;
 
 Route::get('/', function () {
     return view('index');
@@ -56,9 +57,16 @@ Route::controller(CocheController::class)->middleware(['auth:sanctum', 'verified
     Route::delete('coches/{coche}/delete', 'destroy')->name('coches.destroy');
 });
 
-/* Parte de los campeonatos */
-// Route::resource('campeonatos', CampeonatoController::class)->middleware(['auth:sanctum', 'verified']);
-
+/* Parte de los equipos */
+Route::controller(EquipoController::class)->middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('equipos', 'index')->name('equipos.index');
+    Route::get('equipos/create', 'create')->name('equipos.create');
+    Route::post('equipos/store', 'store')->name('equipos.store');
+    Route::get('equipos/{equipo}', 'show')->name('equipos.show');
+    Route::get('equipos/{equipo}/edit', 'edit')->name('equipos.edit');
+    Route::put('equipos/{equipo}', 'update')->name('equipos.update');
+    Route::delete('equipos/{equipo}/delete', 'destroy')->name('equipos.destroy');
+});
 /* Parte de los equipos */
 // Route::resource('equipos', EquipoController::class)->middleware(['auth:sanctum', 'verified']);
 

@@ -23,10 +23,7 @@ class CarreraController extends Controller
     $user = Auth::user();
     
     // Obtener las carreras basadas en los dispositivos del usuario logueado
-    $carreras = Carrera::join('dispositivos', 'carreras.dispositivo_id', '=', 'dispositivos.id')
-                        ->where('dispositivos.usuario_id', $user->id)
-                        ->select('carreras.*')
-                        ->get();
+    $carreras = $user->carreras();
 
     return view('carreras.index', ['carreras' => $carreras]);
     }
