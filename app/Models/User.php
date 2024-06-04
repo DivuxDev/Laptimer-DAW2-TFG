@@ -106,10 +106,16 @@ class User extends Authenticatable
     }
 
     public function carreras(){
-
        return Carrera::join('dispositivos', 'carreras.dispositivo_id', '=', 'dispositivos.id')
                         ->where('dispositivos.usuario_id',auth()->user()->id)
                         ->select('carreras.*')
                         ->get();
     }
+
+    public function carrerasQuery(){
+        return Carrera::join('dispositivos', 'carreras.dispositivo_id', '=', 'dispositivos.id')
+        ->where('dispositivos.usuario_id', $this->id)
+        ->select('carreras.id', 'carreras.nombre', 'carreras.fecha', 'carreras.dispositivo_id');
+
+     }
 }

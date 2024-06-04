@@ -1,18 +1,45 @@
 // Fonts
 @import url('https://fonts.bunny.net/css?family=Nunito');
 
-// Variables
-@import 'variables';
-
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
 // Example usage
+:root {
+
+// Body
+--body-bg: #f8fafc;
+
+// Typography
+--font-family-sans-serif: 'Nunito', sans-serif;
+--font-size-base: 0.9rem;
+--line-height-base: 1.6;
+
+
+// Primary Colors
+--primary-color-1: #CC1903;
+--primary-color-2: #FFFFFF;
+--primary-color-3: #D4D6D5;
+
+// CRUD Action Colors
+--crud-create: #62C370; // Success - Green
+--crud-read: #596cee;   // Info - Blue
+--crud-update: #eecd60; // Warning - Yellow
+--crud-delete: #D62246; // Danger - Red
+
+// Optional: Text Colors
+--text-color-primary: #000000;
+--text-color-secondary: #666666;
+}
+
+html{
+    font-family: --font-family-sans-serif;
+}
 
 .button-create {
-    background-color: $crud-create;
+    background-color: var(--crud-create);
     color: white;
 }
 .button-create:hover {
@@ -20,18 +47,18 @@
 }
 
 .button-read {
-    background-color: $crud-read;
+    background-color:var(--crud-read);
     color: white;
 }
 
 .button-update {
-    background-color: $crud-update;
+    background-color:var(--crud-update);
     color: white;
 
 }
 
 .button-delete {
-    background-color: $crud-delete;
+    background-color: var(--crud-delete);
     color: white;
 
 }
@@ -51,7 +78,7 @@ table.dataTable {
 }
 
 table.dataTable thead {
-    background-color: #b31217;
+    background-color: var(--primary-color-1);
     color: white;
 }
 
@@ -83,7 +110,7 @@ table.dataTable tbody td {
     display: inline-block;
     padding: 6px 12px;
     margin: 2px;
-    background-color: #e52d27;
+    background-color:  var(--primary-color-1);
     color: white;
     border: 1px solid transparent;
     border-radius: 4px;
@@ -92,11 +119,11 @@ table.dataTable tbody td {
 }
 
 .dataTables_paginate .paginate_button:hover {
-    background-color: #b31217;
+    background-color:  var(--primary-color-1);
 }
 
 .dataTables_paginate .paginate_button.current {
-    background-color: #b31217;
+    background-color:  var(--primary-color-1);
     font-weight: bold;
 }
 
