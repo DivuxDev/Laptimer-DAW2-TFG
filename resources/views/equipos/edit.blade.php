@@ -17,12 +17,13 @@
 @endif
 
 <div class="container">
-    <form action="{{ route('equipos.update', $equipo->id) }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+    <form action="{{ route('equipos.update', $equipo->slug) }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
         @csrf
         @method('PUT')
+
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre del equipo:</label>
-            <input type="text" id="nombre" name="nombre" class="form-control" value="{{ $equipo->nombre }}" required>
+            <input type="text" id="nombre" name="nombre" class="form-control" value="{{ old('nombre', $equipo->nombre) }}" required>
             <div class="invalid-feedback">
                 Por favor, ingrese el nombre del equipo.
             </div>
@@ -30,32 +31,34 @@
 
         <div class="mb-3">
             <label for="descripcion" class="form-label">Descripción:</label>
-            <textarea id="descripcion" name="descripcion" class="form-control" rows="3" required>{{ $equipo->descripcion }}</textarea>
+            <textarea id="descripcion" name="descripcion" class="form-control" rows="3" required>{{ old('descripcion', $equipo->descripcion) }}</textarea>
             <div class="invalid-feedback">
                 Por favor, ingrese una descripción.
             </div>
         </div>
 
         <div class="mb-3">
-            <label for="jugadores" class="form-label">Miembros:</label>
-            <select name="jugadores[]" id="jugadores" class="form-control" multiple="multiple" required>
-                @foreach($jugadores as $jugador)
-                    <option value="{{ $jugador->id }}" {{ in_array($jugador->id, $equipo->jugadores->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $jugador->nombre }}</option>
+            <label for="miembros" class="form-label">Miembros:</label>
+            <select name="miembros[]" id="miembros" class="form-control" multiple="multiple" required>
+                @foreach($miembros as $miembro)
+                    <option value="{{ $miembro->id }}" {{ in_array($miembro->id, $equipo->jugadores->pluck('id')->toArray()) ? 'selected' : '' }}>
+                        {{ $miembro->nombre }}
+                    </option>
                 @endforeach
             </select>
             <div class="invalid-feedback">
-                Por favor, seleccione al menos un jugador.
+                Por favor, seleccione al menos un miembro.
             </div>
+            
         </div>
 
         <div class="mb-3">
             <label for="imagenes" class="form-label">Imágenes:</label>
             <input type="file" id="imagenes" name="imagenes[]" class="form-control" multiple>
-            <small class="form-text text-muted">Si no desea cambiar las imágenes, deje este campo vacío.</small>
         </div>
 
         <div class="d-grid">
-            <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
+            <button type="submit" class="btn btn-primary btn-block">Guardar Cambios</button>
         </div>
     </form>
 </div>
@@ -65,7 +68,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#jugadores').select2();
+        $('#miembros').select2();
     });
 
     // Bootstrap form validation

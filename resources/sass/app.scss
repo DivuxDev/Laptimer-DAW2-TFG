@@ -110,7 +110,6 @@ table.dataTable tbody td {
     display: inline-block;
     padding: 6px 12px;
     margin: 2px;
-    background-color:  var(--primary-color-1);
     color: white;
     border: 1px solid transparent;
     border-radius: 4px;
@@ -119,11 +118,9 @@ table.dataTable tbody td {
 }
 
 .dataTables_paginate .paginate_button:hover {
-    background-color:  var(--primary-color-1);
 }
 
 .dataTables_paginate .paginate_button.current {
-    background-color:  var(--primary-color-1);
     font-weight: bold;
 }
 

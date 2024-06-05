@@ -7,6 +7,7 @@ use App\Http\Controllers\JugadorController;
 use App\Http\Controllers\CocheController;
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CampeonatoController;
 
 Route::get('/', function () {
     return view('index');
@@ -33,6 +34,7 @@ Route::middleware([
 
     /* Parte de las carreras */
     Route::controller(CarreraController::class)->group(function () {
+        Route::get('campeonatos-carreras', 'list')->name('carreras.list');
         Route::get('carreras', 'index')->name('carreras.index');
         Route::get('carreras/create', 'create')->name('carreras.create');
         Route::post('carreras/store', 'store')->name('carreras.store');
@@ -73,6 +75,17 @@ Route::middleware([
         Route::get('equipos/{equipo}/edit', 'edit')->name('equipos.edit');
         Route::put('equipos/{equipo}', 'update')->name('equipos.update');
         Route::delete('equipos/{equipo}/delete', 'destroy')->name('equipos.destroy');
+    });
+
+    /* Parte de los campeonatos */
+    Route::controller(CampeonatoController::class)->group(function () {
+        Route::get('campeonatos', 'index')->name('campeonatos.index');
+        Route::get('campeonatos/create', 'create')->name('campeonatos.create');
+        Route::post('campeonatos/store', 'store')->name('campeonatos.store');
+        Route::get('campeonatos/{Campeonato}', 'show')->name('campeonatos.show');
+        Route::get('campeonatos/{Campeonato}/edit', 'edit')->name('campeonatos.edit');
+        Route::put('campeonatos/{Campeonato}', 'update')->name('campeonatos.update');
+        Route::delete('campeonatos/{Campeonato}/delete', 'destroy')->name('campeonatos.destroy');
     });
 });
 

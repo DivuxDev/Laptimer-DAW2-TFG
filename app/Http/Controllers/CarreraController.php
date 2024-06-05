@@ -21,11 +21,19 @@ class CarreraController extends Controller
     {
         // Obtener el usuario actualmente logueado
     $user = Auth::user();
-    
     // Obtener las carreras basadas en los dispositivos del usuario logueado
     $carreras = $user->carreras();
-
     return view('carreras.index', ['carreras' => $carreras]);
+    }
+
+    public function list()
+    {
+        // Obtener el usuario actualmente logueado
+    $user = Auth::user();
+    // Obtener las carreras y campeonatos del usuario logueado
+    $carreras = $user->carreras();
+    $campeonatos = $user->campeonatos;
+    return view('carreras.list', ['carreras' => $carreras,'campeonatos' => $campeonatos]);
     }
 
     public function show(Carrera $carrera)

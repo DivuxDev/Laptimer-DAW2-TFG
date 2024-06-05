@@ -8,6 +8,19 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome for icons (optional) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .navbar{
+            background-color: var(--primary-color-1) !important;
+            color: white;
+        }
+        .nav-link{
+            color: white;
+        }
+        .nav-item{
+
+        }
+
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
@@ -27,7 +40,7 @@
                         <a class="nav-link" href="{{route('laptimer.dashboard')}}">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('carreras.index')}}">Carreras</a>
+                        <a class="nav-link" href="{{route('carreras.list')}}">Campeonatos y Carreras</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('jugadores.index')}}">Jugadores</a>
@@ -35,10 +48,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('coches.index')}}">Coches</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('equipos.index')}}">Equipos</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <!-- Usuario actualmente logeado -->
-                    <li class="nav-item dropdown" style="border: 1px solid #000; border-radius: 5px;">
+                    <li class="nav-item dropdown" style="border: 1px solid #ffffff; border-radius: 5px;">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->name }} <i class="fas fa-user-circle"></i>
                         </a>

@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <title>@yield('titulo')</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/logo.png') }}">
+    
 </head>
 <nav>
     @include('layouts.partials.nav')

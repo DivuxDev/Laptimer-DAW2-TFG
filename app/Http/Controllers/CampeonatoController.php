@@ -3,41 +3,43 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use PDOException;
-use Exception; 
+use App\Models\Carrera;
+use App\Models\Dispositivo;
+use App\Models\Campeonato;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-Use App\Models\Equipo;
-Use App\Models\Jugador;
+use PDOException;
+use Exception;
 
-class EquipoController extends Controller
+class CampeonatoController extends Controller
 {
     public function index()
     {
     // Obtener el usuario actualmente logueado
     $user = Auth::user();
-    $equipos = $user->equipos;
-    return view('equipos.index', ['equipos' => $equipos]);
+    $campeonatos = $user->campeonatos;
+    return view('campeonatos.index', ['campeonatos' => $campeonatos]);
     }
 
-    public function show(Equipo $equipo)
+    public function show(Campeonato $campeonato)
     {
-        return view('equipos.show', ['equipo' => $equipo]);
+        return view('campeonatos.show', ['campeonato' => $campeonato]);
     }
 
-    public function edit(Equipo $equipo)
+    public function edit(campeonato $campeonato)
     {
         $user = Auth::user();
-        $miembros = $user->jugadores;
-        return view('equipos.edit',['equipo'=>$equipo,'miembros' => $miembros]);
+        $carreras = $user->carreras;
+        return view('campeonatos.edit',['campeonato'=>$campeonato,'carreras' => $carreras]);
     }
 
     public function create()
     { 
         $user = Auth::user();
-        $miembros = $user->jugadores;
-        return view('equipos.create',['miembros' => $miembros]);
+        $carreras = $user->carreras;
+        return view('campeonatos.create',['carreras' => $carreras]);
     }
 
 
@@ -151,3 +153,4 @@ class EquipoController extends Controller
         return redirect()->route('equipos.index')->with('success', 'equipo borrado');
     }
 }
+

@@ -36,14 +36,14 @@
         </div>
 
         <div class="mb-3">
-            <label for="jugadores" class="form-label">Miembros:</label>
-            <select name="jugadores[]" id="jugadores" class="form-control" multiple="multiple" required>
-                @foreach($jugadores as $jugador)
-                    <option value="{{ $jugador->id }}">{{ $jugador->nombre }}</option>
+            <label for="miembros" class="form-label">Miembros:</label>
+            <select name="miembros[]" id="miembros" class="form-control" multiple="multiple" required>
+                @foreach($miembros as $miembro)
+                    <option value="{{ $miembro->id }}">{{ $miembro->nombre }}</option>
                 @endforeach
             </select>
             <div class="invalid-feedback">
-                Por favor, seleccione al menos un jugador.
+                Por favor, seleccione al menos un miembro.
             </div>
         </div>
 
@@ -63,7 +63,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#jugadores').select2();
+        $('#miembros').select2();
     });
 
     // Bootstrap form validation

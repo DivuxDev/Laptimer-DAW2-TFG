@@ -81,6 +81,14 @@ class User extends Authenticatable
         return $this->hasMany(Jugador::class,'usuario_id');
     }
 
+
+    /**
+     * Define the relationship between User and campeonatos.
+     */
+    public function campeonatos()
+    {
+        return $this->hasMany(Campeonato::class,'usuario_id');
+    }
     /**
      * Define the relationship between User and Coche.
      */
@@ -90,7 +98,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Define the relationship between User and Jugador.
+     * Define the relationship between User and equipos.
      */
     public function equipos()
     {
