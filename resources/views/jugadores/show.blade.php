@@ -4,18 +4,6 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        .card {
-            border: none;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .card-header {
-            background-color: #dc3545;
-            color: white;
-        }
-        .content-section {
-            margin-top: 20px;
-        }
         .card-body img {
             max-width: 100%;
             height: auto;
@@ -49,13 +37,16 @@
                 <div class="card-header">
                     Imagen
                 </div>
-                <div class="card-body text-center">
+                <div class="card-body">
                     @if ($jugador->imagen)
-                        <img src="{{ asset('storage/' . $jugador->imagen) }}" alt="Imagen del jugador" class="img-fluid">
+                    <a href="#full-image"><img src="{{ asset('storage/' . $jugador->imagen->url) }}" alt="Imagen del jugador" class="img-fluid"></a>
+                    <div id="full-image" class="full-screen-img">
+                        <a href="#"><img src="{{  asset('storage/' . $jugador->imagen->url) }}" alt="Imagen del jugador"></a>
+                    </div>
                     @else
                         <p>No hay imagen disponible.</p>
-                    @endif
-                </div>
+                    @endif               
+                 </div>
             </div>
         </div>
         

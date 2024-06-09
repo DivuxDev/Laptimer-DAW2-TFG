@@ -39,7 +39,7 @@
     </style>
 </head>
 
-<body class="bg-gray-100">
+<div class="bg-gray-100">
     <div class="container mx-auto p-4">
         <h1 class="text-4xl font-bold mb-4">Listado de Coches</h1>
         @if (session('error'))
@@ -105,11 +105,32 @@
 
     <script>
         $(document).ready(function() {
-            var table = $('#cochesTable').DataTable();
+            var table = $('#cochesTable').DataTable({
+            "language": {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
+                "infoFiltered": "(Filtrado de _MAX_ entradas totales)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "No se encontraron resultados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            }
+        });
             $('#searchInput').on('keyup', function() {
                 table.search(this.value).draw();
             });
         });
     </script>
-</body>
+</div>
 @endsection

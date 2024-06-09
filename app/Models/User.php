@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Carrera;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
@@ -80,6 +81,14 @@ class User extends Authenticatable
         return $this->hasMany(Jugador::class,'usuario_id');
     }
 
+
+    /**
+     * Define the relationship between User and campeonatos.
+     */
+    public function campeonatos()
+    {
+        return $this->hasMany(Campeonato::class,'usuario_id');
+    }
     /**
      * Define the relationship between User and Coche.
      */
@@ -89,7 +98,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Define the relationship between User and Jugador.
+     * Define the relationship between User and equipos.
      */
     public function equipos()
     {
@@ -103,4 +112,18 @@ class User extends Authenticatable
     {
         return $this->hasMany(Dispositivo::class,'usuario_id');
     }
+
+    public function carreras(){
+       return Carrera::join('dispositivos', 'carreras.dispositivo_id', '=', 'dispositivos.id')
+                        ->where('dispositivos.usuario_id',auth()->user()->id)
+                        ->select('carreras.*')
+                        ->get();
+    }
+
+    public function carrerasQuery(){
+        return Carrera::join('dispositivos', 'carreras.dispositivo_id', '=', 'dispositivos.id')
+        ->where('dispositivos.usuario_id', $this->id)
+        ->select('carreras.id', 'carreras.nombre', 'carreras.fecha', 'carreras.dispositivo_id');
+
+     }
 }

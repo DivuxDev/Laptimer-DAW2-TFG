@@ -25,9 +25,8 @@ class Coche extends Model
         return 'slug';
     }
 
-    public function imagen()
-    {
-        return $this->belongsTo(Imagen::class,'imageable_id');
+    public function imagen(){
+        return $this->hasOne(Imagen::class,'id','imagen_id');
     }
 
 /**
@@ -37,6 +36,7 @@ class Coche extends Model
     {
         return $this->hasMany(Jugador::class, 'coche_id');
     }
+    
     public function participaciones()
     {
         return $this->hasMany(Participacion::class);

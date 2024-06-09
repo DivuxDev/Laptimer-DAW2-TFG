@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('campeonatos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->string('descripcion');
             $table->date('fecha');
-            $table->boolean('en_curso')->default(false);
             $table->string('slug')->unique();
             $table->unsignedBigInteger('imagen_id')->nullable();
             $table->foreign('imagen_id')->references('id')->on('imagenes')->onDelete('cascade');
+            $table->unsignedBigInteger('usuario_id');
+            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
             $table->timestamps();
         });
     }

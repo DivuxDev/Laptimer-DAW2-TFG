@@ -10,6 +10,8 @@ use PDOException;
 use Exception; 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\Imagen;
+use Illuminate\Support\Facades\Storage;
 
 class JugadorController extends Controller
 {
@@ -61,8 +63,11 @@ class JugadorController extends Controller
             'nombre' => 'required|string|max:255',
             'fecha' => 'required|date',
             'equipos' => 'nullable|exists:equipos,id',
-            'imagen_id' => 'nullable|exists:imagenes,id',
             'coches' => 'required',
+             'imagen' =>  'mimes:jpg,png',
+        ], [
+            'imagen.mimes' => 'La imagen debe ser un archivo de tipo: jpg, png.',
+            'imagen.max' => 'La imagen no debe exceder los 2MB.',
         ]);
 
         // Actualización de los datos del jugador
@@ -71,6 +76,31 @@ class JugadorController extends Controller
             $jugador->fecha = $request->input('fecha');
             $jugador->equipo_id = $request->input('equipos');
             $jugador->coche_id = $request->input('coches');
+            
+            if($request->hasFile('imagen')){
+                if($jugador->imagen != null){
+
+                    // Elimina la imagen anterior
+                    Storage::disk('public')->delete($jugador->imagen->url);
+
+                    $nombreArchivo = time() . '.' . $request->imagen->extension();
+                    $ruta = $request->imagen->storeAs('imagenes', $nombreArchivo, 'public');
+
+                    $jugador->imagen->url = $ruta;
+                    $jugador->imagen->save();
+                }else{
+                    if($request->has('imagen')){
+                        $nombreArchivo = time() . '.' . $request->imagen->extension();
+                        $ruta = $request->imagen->storeAs('imagenes', $nombreArchivo, 'public');
+                
+                        $imagen = new Imagen();
+                        $imagen->url = $ruta;
+                        $imagen->save();
+                        
+                        $jugador->imagen_id=$imagen->id;
+                    }
+                }
+            }
             $jugador->save();
         
     
@@ -98,6 +128,10 @@ class JugadorController extends Controller
             'fecha' => 'required|date',
             'equipos' => 'required',
             'coches' => 'required',
+            'imagen' =>  'mimes:jpg,png',
+        ], [
+            'imagen.mimes' => 'La imagen debe ser un archivo de tipo: jpg, png.',
+            'imagen.max' => 'La imagen no debe exceder los 2MB.',
         ]);
 
         try {
@@ -108,6 +142,19 @@ class JugadorController extends Controller
             $jugador->nombre = $request->nombre;
             $jugador->slug = Str::slug($request->nombre);
             $jugador->fecha = $request->fecha;
+
+            if($request->has('imagen')){
+                $nombreArchivo = time() . '.' . $request->imagen->extension();
+                $ruta = $request->imagen->storeAs('imagenes', $nombreArchivo, 'public');
+        
+                $imagen = new Imagen();
+                $imagen->url = $ruta;
+                $imagen->save();
+                
+                $jugador->imagen_id=$imagen->id;
+            }
+
+
             //guardo el ID del equipo seleccionado
             if($request->has('equipos')){
                 $jugador->equipo_id = $request->equipos;

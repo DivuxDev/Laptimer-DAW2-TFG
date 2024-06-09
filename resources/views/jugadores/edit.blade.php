@@ -2,20 +2,19 @@
 @section('titulo', 'Editar jugador')
 @section('contenido')
 <h1 class="text-center my-4">Editar Jugador {{ $jugador->nombre }}</h1>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
-@if ($errors->any())
-    <div class="alert alert-danger" role="alert">
-        <strong>Hubo errores en el formulario:</strong>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
 <div class="container">
+    @if ($errors->any())
+        <div class="alert alert-danger" role="alert">
+            <strong>Hubo errores en el formulario:</strong>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="{{ route('jugadores.update', $jugador) }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
         @csrf
         @method('PUT')
@@ -33,6 +32,11 @@
             <div class="invalid-feedback">
                 Por favor, seleccione una fecha.
             </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="imagen" class="form-label">Imágen:</label>
+            <input type="file" id="imagen" name="imagen" class="form-control">
         </div>
 
         <div class="mb-3">

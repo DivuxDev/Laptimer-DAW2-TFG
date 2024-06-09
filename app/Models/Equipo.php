@@ -10,7 +10,7 @@ class Equipo extends Model
     use HasFactory;
     protected $table='equipos';
     protected $fillable = [
-        'nombre', 'descripcion', 'slug', 'imagen_id'
+        'nombre', 'descripcion', 'slug', 'imagen_id','usuario_id'
     ];
     /**
      * Get the route key for the model.
@@ -24,11 +24,14 @@ class Equipo extends Model
 
     public function jugadores()
     {
-        return $this->belongsToMany(Jugador::class, 'jugador_equipo', 'id_equipo', 'id_jugador');
+        return $this->hasMany(Jugador::class, 'equipo_id');
     }
 
     public function participaciones()
     {
         return $this->hasMany(Participacion::class, 'id_equipo');
+    }
+    public function imagen(){
+        return $this->hasOne(Imagen::class,'id','imagen_id');
     }
 }

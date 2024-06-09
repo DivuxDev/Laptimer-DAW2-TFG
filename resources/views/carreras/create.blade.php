@@ -3,7 +3,6 @@
 @section('contenido')
 
 <h1 class="text-center my-4">Nueva Carrera</h1>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
 @if ($errors->any())
     <div class="alert alert-danger" role="alert">
@@ -61,12 +60,17 @@
         </div>
 
         <div class="mb-3">
-            <label for="jugadores" class="form-label">Select Users:</label>
+            <label for="jugadores" class="form-label">Selecciona los participantes:</label>
             <select name="jugadores[]" id="jugadores" class="form-control" multiple="multiple">
                 @foreach($jugadores as $jugador)
                     <option value="{{ $jugador->id }}">{{ $jugador->nombre }}</option>
                 @endforeach
             </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="imagen" class="form-label">Imágen:</label>
+            <input type="file" id="imagen" name="imagen" class="form-control">
         </div>
 
         <div class="d-grid">

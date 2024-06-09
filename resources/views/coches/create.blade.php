@@ -33,6 +33,12 @@
         </div>
 
         <div class="mb-3">
+            <label for="imagen" class="form-label">Imágen:</label>
+            <input type="file" id="imagen" name="imagen" class="form-control">
+        </div>
+
+
+        <div class="mb-3">
             <label for="categoria" class="form-label">Categoría:</label>
             <input type="text" id="categoria" name="categoria" class="form-control" value="{{ old('categoria') }}" required>
             <div class="invalid-feedback">

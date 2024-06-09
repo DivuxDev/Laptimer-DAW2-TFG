@@ -1,36 +1,55 @@
-@extends('layouts.app')
+@vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-@section('title', 'Login')
-
-@section('content')
 <style>
-    body {
-        background-color: #f8f9fa;
-    }
+     body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('{{ asset('img/loginBackground.png') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            filter: blur(5px);
+            z-index: -1;
+        }
+
+    
     .card {
         border: none;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     .card-header {
-        background-color: #dc3545;
+        background-color: var(--primary-color-1);
         color: white;
         text-align: center;
     }
     .btn-primary {
-        background-color: #dc3545;
+        background-color: var(--primary-color-1);
         border: none;
     }
     .btn-primary:hover {
-        background-color: #bb2d3b;
+        background-color: var(--primary-color-1);
     }
     .form-check-input:checked {
-        background-color: #dc3545;
-        border-color: #dc3545;
+        background-color:var(--primary-color-1);
+        border-color: var(--primary-color-1);
     }
     .logo {
         display: block;
         margin: 0 auto 20px;
-        width: 100px;
+        width: 300px;
     }
 </style>
 <div class="container">
@@ -39,9 +58,7 @@
             <div class="card">
                 <div class="card-header">
                     <img src="{{ asset('img/logo.png') }}" alt="Logo" class="logo">
-                    {{ __('Login') }}
                 </div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -99,4 +116,3 @@
         </div>
     </div>
 </div>
-@endsection
