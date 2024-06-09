@@ -8,10 +8,11 @@ use App\Http\Controllers\CocheController;
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CampeonatoController;
+use App\Http\Controllers\DispositivoController;
 
 Route::get('/', function () {
     return view('index');
-})->name('index')->middleware(['auth:sanctum', 'verified']);
+})->name('index');
 
 /* REGION REST */
 
@@ -28,9 +29,8 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-])->prefix('dashboard')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('laptimer.dashboard');
-
+])->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('laptimer.dashboard');
 
     /* Parte de las carreras */
     Route::controller(CarreraController::class)->group(function () {
@@ -42,6 +42,7 @@ Route::middleware([
         Route::get('carreras/{carrera}/edit', 'edit')->name('carreras.edit');
         Route::put('carreras/{carrera}', 'update')->name('carreras.update');
         Route::delete('carreras/{carrera}/delete', 'destroy')->name('carreras.destroy');
+        Route::get('carreras/{carrera}/{jugador}', 'performance')->name('carreras.performance');
     });
 
     /* Parte de los jugadores */
@@ -82,13 +83,16 @@ Route::middleware([
         Route::get('campeonatos', 'index')->name('campeonatos.index');
         Route::get('campeonatos/create', 'create')->name('campeonatos.create');
         Route::post('campeonatos/store', 'store')->name('campeonatos.store');
-        Route::get('campeonatos/{Campeonato}', 'show')->name('campeonatos.show');
-        Route::get('campeonatos/{Campeonato}/edit', 'edit')->name('campeonatos.edit');
-        Route::put('campeonatos/{Campeonato}', 'update')->name('campeonatos.update');
-        Route::delete('campeonatos/{Campeonato}/delete', 'destroy')->name('campeonatos.destroy');
+        Route::get('campeonatos/{campeonato}', 'show')->name('campeonatos.show');
+        Route::get('campeonatos/{campeonato}/edit', 'edit')->name('campeonatos.edit');
+        Route::put('campeonatos/{campeonato}', 'update')->name('campeonatos.update');
+        Route::delete('campeonatos/{campeonato}/delete', 'destroy')->name('campeonatos.destroy');
+    });
+
+    /* Parte de los dispositivos */
+    Route::controller(DispositivoController::class)->group(function () {
+        Route::get('dispositivos', 'index')->name('dispositivos.index');
     });
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

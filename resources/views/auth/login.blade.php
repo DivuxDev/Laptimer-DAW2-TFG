@@ -1,13 +1,30 @@
 @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
 <style>
-   body {
-        background-color: #f8f9fa;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+     body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('{{ asset('img/loginBackground.png') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            filter: blur(5px);
+            z-index: -1;
+        }
+
     
     .card {
         border: none;
@@ -42,7 +59,6 @@
                 <div class="card-header">
                     <img src="{{ asset('img/logo.png') }}" alt="Logo" class="logo">
                 </div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

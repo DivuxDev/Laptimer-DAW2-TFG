@@ -6,22 +6,9 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        .card {
-            border: none;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        .card-header {
-            background-color: #dc3545;
-            color: white;
-        }
-        .card-body img {
-            max-width: 100%;
-            height: auto;
-        }
-        .content-section {
-            margin-top: 20px;
+            .img{
+            height: 100px;
+            width: 200px;
         }
     </style>
 </head>
@@ -37,6 +24,7 @@
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Confirmación:</strong> {{ session('success') }}.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     @endif
 
     <div class="row mb-4">
@@ -51,12 +39,16 @@
                 <div class="card-header">
                     Imagen
                 </div>
-                <div class="card-body text-center">
-                    @if ($coche->imagen_id)
-                        <img src="{{ asset('ruta/a/imagen/' . $coche->imagen_id) }}" alt="Imagen del coche">
+                
+                <div class="card-body">
+                    @if ($coche->imagen)
+                    <a href="#full-image"><img src="{{ asset('storage/' . $coche->imagen->url) }}" alt="Imagen del coche" class="img-fluid"></a>
+                    <div id="full-image" class="full-screen-img">
+                        <a href="#"><img src="{{  asset('storage/' . $coche->imagen->url) }}" alt="Imagen del coche"></a>
+                    </div>
                     @else
                         <p>No hay imagen disponible.</p>
-                    @endif
+                    @endif               
                 </div>
             </div>
         </div>

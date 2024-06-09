@@ -25,8 +25,12 @@ class Campeonato extends Model
         return $this->belongsToMany(Carrera::class, 'campeonato_carrera', 'campeonato_id', 'carrera_id');
     }
 
-    public function imagen()
+    public function imagen(){
+        return $this->hasOne(Imagen::class,'id','imagen_id');
+    }
+
+    public function usuario()
     {
-        return $this->belongsTo(Imagen::class,'imageable_id');
+        return $this->belongsTo(User::class);
     }
 }

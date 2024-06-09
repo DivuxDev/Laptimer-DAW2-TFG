@@ -40,6 +40,9 @@ class Jugador extends Model
     {
         return $this->hasMany(Tiempo::class, 'jugador_id');
     }
+    public function imagen(){
+        return $this->hasOne(Imagen::class,'id','imagen_id');
+    }
 
     
 }

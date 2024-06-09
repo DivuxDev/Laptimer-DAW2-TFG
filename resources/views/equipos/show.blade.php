@@ -58,14 +58,17 @@
             </ul>
         </div>
         <div class="equipo-imagenes">
-            <h2>Carrousel de Imágenes</h2>
-                    <div class="card-body text-center">
-                        @if ($equipo->imagen)
-                            <img src="{{ asset('storage/' . $equipo->imagen) }}" alt="Imagen del equipo" class="img-fluid">
-                        @else
-                            <p>No hay imagen disponible.</p>
-                        @endif
-                    </div>
+            <h2>Imagen</h2>
+            <div class="card-body">
+                @if ($equipo->imagen)
+                <a href="#full-image"><img src="{{ asset('storage/' . $equipo->imagen->url) }}" alt="Imagen del equipo" class="img-fluid"></a>
+                <div id="full-image" class="full-screen-img">
+                    <a href="#"><img src="{{  asset('storage/' . $equipo->imagen->url) }}" alt="Imagen del equipo"></a>
+                </div>
+                @else
+                    <p>No hay imagen disponible.</p>
+                @endif               
+             </div>
             </div>
         </div>
     </div>

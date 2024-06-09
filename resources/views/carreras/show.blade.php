@@ -6,20 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
-    <style>
-        .card {
-            border: none;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .card-header {
-            background-color: #dc3545;
-            color: white;
-        }
-        .content-section {
-            margin-top: 20px;
-        }
-    </style>
+    
 </head>
 
 <div class="container mx-auto p-4">
@@ -60,11 +47,15 @@
                                     <th>Mejor tiempo</th>
                                     <th>Tiempo total</th>
                                     <th>Tiempo medio</th>
+                                    <th>Detalle</th>
+
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($carrera->participaciones as $participacion)
+                                
                                     @php
+                                        $jugador=$participacion->jugador;
                                         $tiempos = $participacion->tiempos->pluck('tiempo')->map(function($item) {
                                             return (float) $item;
                                         });
@@ -76,12 +67,16 @@
                                     <tr>
                                         <td>#{{ $participacion->jugador->id }}</td>
                                         <td>{{ $participacion->jugador->nombre }}</td>
-                                        <td>{{ $participacion->equipo ? $participacion->equipo->nombre : 'N/A' }}</td>
+                                        <td>{{ $participacion->jugador->equipo ? $participacion->jugador->equipo->nombre : 'N/A' }}</td>
                                         <td>{{ $participacion->coche ? $participacion->coche->modelo : 'N/A' }}</td>
                                         <td>{{ number_format($mejorTiempo, 2) }} s</td>
                                         <td>{{ number_format($totalTiempo, 2) }} s</td>
                                         <td>{{ number_format($tiempoMedio, 2) }} s</td>
+                                        <td> <a class="btn btn-sm button-read text-white" role="button" href="{{ route('carreras.performance', ['carrera' => $carrera, 'jugador' => $jugador]) }}">
+                                            <i class="fas fa-eye"></i>
+                                        </a></td>
                                     </tr>
+
                                 @endforeach
                             </tbody>
                         </table>
@@ -108,10 +103,14 @@
                 </div>
                 <div class="card-body text-center">
                     @if ($carrera->imagen)
-                        <img src="{{ asset('storage/' . $carrera->imagen) }}" alt="Imagen de la carrera" class="img-fluid">
+                    <a href="#full-image"><img src="{{ asset('storage/' . $carrera->imagen->url) }}" alt="Imagen de la carrera" class="img-fluid"></a>
+                    <div id="full-image" class="full-screen-img">
+                        <a href="#"><img src="{{  asset('storage/' . $carrera->imagen->url) }}" alt="Imagen de la carrera"></a>
+                    </div>
                     @else
                         <p>No hay imagen disponible.</p>
                     @endif
+
                 </div>
             </div>
         </div>

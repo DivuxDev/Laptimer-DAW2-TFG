@@ -2,7 +2,6 @@
 @section('titulo', 'Editar carrera')
 @section('contenido')
 <h1 class="text-center my-4">Editar carrera</h1>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
 @if ($errors->any())
     <div class="alert alert-danger" role="alert">
@@ -62,7 +61,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="jugadores" class="form-label">Select Users:</label>
+            <label for="jugadores" class="form-label">Seleccionar los participantes:</label>
             <select name="jugadores[]" id="jugadores" class="form-control" multiple="multiple" required>
                 @foreach($jugadores as $jugador)
                     <option value="{{ $jugador->id }}" {{ in_array($jugador->id, old('jugadores', $jugadoresParticipantes)) ? 'selected' : '' }}>{{ $jugador->nombre }}</option>
@@ -71,6 +70,11 @@
             <div class="invalid-feedback">
                 Por favor, seleccione al menos un jugador.
             </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="imagen" class="form-label">Imágen:</label>
+            <input type="file" id="imagen" name="imagen" class="form-control">
         </div>
 
         <div class="d-grid">

@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style>
     .footer {
-        background: linear-gradient(135deg, #b31217, #e52d27);
+        background: var(--primary-color-1);
         color: white;
         text-align: center;
         padding: 20px 0;

@@ -7,10 +7,12 @@ use App\Models\Carrera;
 use App\Models\Jugador;
 use App\Models\Participacion;
 use App\Models\Dispositivo;
+use App\Models\Imagen;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use PDOException;
 use Exception;
 
@@ -41,6 +43,25 @@ class CarreraController extends Controller
         return view('carreras.show', ['carrera' => $carrera]);
     }
 
+    public function performance(Carrera $carrera,Jugador $jugador)
+    {
+    // Fetch the performance data
+    $participacion = $carrera->participaciones()->where('id_jugador', $jugador->id)->first();
+    $tiempos = $participacion->tiempos;
+
+    // Prepare data for charts and additional stats
+    $laps = $tiempos->pluck('vuelta');
+    $times = $tiempos->pluck('tiempo');
+
+    $totalTime = $times->sum();
+    $averageTime = $times->average();
+    $bestTime = $times->min();
+
+    return view('carreras.performance', compact(
+        'jugador','participacion','carrera', 'laps', 'times', 'totalTime', 'averageTime', 'bestTime'
+    ));    
+    }
+
     public function create()
     {
         $user = Auth::user();
@@ -61,7 +82,12 @@ class CarreraController extends Controller
             'vueltas' => 'required|integer|min:0|max:999',
             'fecha' => 'required|date',
             'dispositivo_id' => 'required',
-        ]);
+            'imagen' =>  'mimes:jpg,png',
+        ], [
+            'imagen.mimes' => 'La imagen debe ser un archivo de tipo: jpg, png.',
+            'imagen.max' => 'La imagen no debe exceder los 2MB.',
+        ]
+        );
         try {
             //empiezo una transaccion por si al intentar crear la carrera falla algo poder volver atras
             DB::beginTransaction();
@@ -79,11 +105,24 @@ class CarreraController extends Controller
             $carrera->en_curso = $request->has('en_curso') ? 1 : 0;
             $carrera->dispositivo_id = $request->dispositivo_id;
 
+            if($request->has('imagen')){
+                $nombreArchivo = time() . '.' . $request->imagen->extension();
+                $ruta = $request->imagen->storeAs('imagenes', $nombreArchivo, 'public');
+        
+                $imagen = new Imagen();
+                $imagen->url = $ruta;
+                $imagen->save();
+                
+                $carrera->imagen_id=$imagen->id;
+            }
+
             $carrera->save();
             // Obtener el ID de la carrera recién guardada
             $carreraId = $carrera->id;
 /* #endregion */        
 /* #region Crear la participacion */ 
+        if($request->has('jugadores')){
+
             foreach($request->jugadores as $jugadorId){
                 $participacion = new Participacion();
                 $jugador = Jugador::where('id', $jugadorId)->firstOrFail();
@@ -94,6 +133,7 @@ class CarreraController extends Controller
                     $participacion->save();
                 }
             }
+        }
 /* #endregion */
             DB::commit();
             //si se crea correctamente redirigo a la pagina de la carrera con un mensaje de success
@@ -134,6 +174,10 @@ class CarreraController extends Controller
             'fecha' => 'required|date',
             'dispositivo_id' => 'required|exists:dispositivos,id',
             'jugadores.*' => 'exists:jugadores,id',
+            'imagen' =>  'mimes:jpg,png',
+        ], [
+            'imagen.mimes' => 'La imagen debe ser un archivo de tipo: jpg, png.',
+            'imagen.max' => 'La imagen no debe exceder los 2MB.',
         ]);
 
         try {
@@ -151,6 +195,31 @@ class CarreraController extends Controller
             // Si en_curso está marcado, actualiza todas las demás carreras a en_curso = false
             if ($carrera->en_curso) {
                 Carrera::where('en_curso', 1)->where('dispositivo_id',$request->dispositivo_id)->update(['en_curso' => 0]);
+            }
+
+            if($request->hasFile('imagen')){
+                if($carrera->imagen != null){
+
+                    // Elimina la imagen anterior
+                    Storage::disk('public')->delete($carrera->imagen->url);
+    
+                    $nombreArchivo = time() . '.' . $request->imagen->extension();
+                    $ruta = $request->imagen->storeAs('imagenes', $nombreArchivo, 'public');
+            
+                    $carrera->imagen->url = $ruta;
+                    $carrera->imagen->save();
+                }else{
+                    if($request->has('imagen')){
+                        $nombreArchivo = time() . '.' . $request->imagen->extension();
+                        $ruta = $request->imagen->storeAs('imagenes', $nombreArchivo, 'public');
+                
+                        $imagen = new Imagen();
+                        $imagen->url = $ruta;
+                        $imagen->save();
+                        
+                        $carrera->imagen_id=$imagen->id;
+                    }
+                }
             }
 
             $carrera->save();

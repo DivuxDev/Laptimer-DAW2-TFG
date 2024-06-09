@@ -9,50 +9,71 @@
 // Example usage
 :root {
 
-// Body
---body-bg: #f8fafc;
+    // Body
+    --body-bg: #f8fafc;
 
-// Typography
---font-family-sans-serif: 'Nunito', sans-serif;
---font-size-base: 0.9rem;
---line-height-base: 1.6;
+    // Typography
+    --font-family-sans-serif: 'Nunito', sans-serif;
+    --font-size-base: 0.9rem;
+    --line-height-base: 1.6;
 
 
-// Primary Colors
---primary-color-1: #CC1903;
---primary-color-2: #FFFFFF;
---primary-color-3: #D4D6D5;
+    // Primary Colors
+    --primary-color-1: #b31217;
+    --primary-color-2: #FFFFFF;
+    --primary-color-3: #D4D6D5;
 
-// CRUD Action Colors
---crud-create: #62C370; // Success - Green
---crud-read: #596cee;   // Info - Blue
---crud-update: #eecd60; // Warning - Yellow
---crud-delete: #D62246; // Danger - Red
+    // CRUD Action Colors
+    --crud-create: #62C370; // Success - Green
+    --crud-read: #596cee; // Info - Blue
+    --crud-update: #eecd60; // Warning - Yellow
+    --crud-delete: #D62246; // Danger - Red
 
-// Optional: Text Colors
---text-color-primary: #000000;
---text-color-secondary: #666666;
+    // Optional: Text Colors
+    --text-color-primary: #000000;
+    --text-color-secondary: #666666;
 }
 
-html{
+html {
     font-family: --font-family-sans-serif;
+}
+
+/* Asegura que html y body ocupen el 100% de la altura */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Establece un contenedor principal flex */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Main debe crecer para ocupar el espacio disponible */
+main {
+    flex: 1;
 }
 
 .button-create {
     background-color: var(--crud-create);
     color: white;
 }
+
 .button-create:hover {
     background-color: green;
 }
 
 .button-read {
-    background-color:var(--crud-read);
+    background-color: var(--crud-read);
     color: white;
 }
 
 .button-update {
-    background-color:var(--crud-update);
+    background-color: var(--crud-update);
     color: white;
 
 }
@@ -61,6 +82,68 @@ html{
     background-color: var(--crud-delete);
     color: white;
 
+}
+
+.full-screen-img {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+.full-screen-img img {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.full-screen-img:target {
+    display: flex;
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+.card-header {
+    background-color: var(--primary-color-1);
+    color: white;
+    font-weight: bold;
+}
+.dropdown-menu {
+    right: 0;
+    left: auto;
+}
+.tag {
+    display: inline-block;
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 0.875em;
+    margin: 0.2em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+.tag:hover {
+    background-color: #e0e0e0;
+    color: #000;
+}
+
+/* Asegúrate de que el select2 sea responsivo */
+.select2-container {
+    width: 100% !important;
+}
+
+.select2-container .select2-selection--multiple {
+    min-height: 38px; /* Puedes ajustar esto según tus necesidades */
 }
 
 /* Estilo general para la tabla */
@@ -117,8 +200,6 @@ table.dataTable tbody td {
     transition: background-color 0.3s;
 }
 
-.dataTables_paginate .paginate_button:hover {
-}
 
 .dataTables_paginate .paginate_button.current {
     font-weight: bold;

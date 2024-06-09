@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 Use App\Models\Equipo;
 Use App\Models\Jugador;
+use App\Models\Imagen;
+use Illuminate\Support\Facades\Storage;
 
 class EquipoController extends Controller
 {
@@ -47,7 +49,12 @@ class EquipoController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:66',
             'descripcion' => 'required|string|max:255',
-        ]);
+            'imagen' =>  'mimes:jpg,png',
+        ], [
+            'imagen.mimes' => 'La imagen debe ser un archivo de tipo: jpg, png.',
+            'imagen.max' => 'La imagen no debe exceder los 2MB.',
+        ]
+        );
     
         try {
             DB::beginTransaction();
@@ -56,6 +63,31 @@ class EquipoController extends Controller
             $equipo->nombre = $request->input('nombre');
             $equipo->descripcion = $request->input('descripcion');
             $equipo->slug = Str::slug($equipo->nombre);
+            
+            if($request->hasFile('imagen')){
+                if($equipo->imagen != null){
+
+                    // Elimina la imagen anterior
+                    Storage::disk('public')->delete($equipo->imagen->url);
+
+                    $nombreArchivo = time() . '.' . $request->imagen->extension();
+                    $ruta = $request->imagen->storeAs('imagenes', $nombreArchivo, 'public');
+
+                    $equipo->imagen->url = $ruta;
+                    $equipo->imagen->save();
+                }else{
+                    if($request->has('imagen')){
+                        $nombreArchivo = time() . '.' . $request->imagen->extension();
+                        $ruta = $request->imagen->storeAs('imagenes', $nombreArchivo, 'public');
+                
+                        $imagen = new Imagen();
+                        $imagen->url = $ruta;
+                        $imagen->save();
+                        
+                        $equipo->imagen_id=$imagen->id;
+                    }
+                }
+            }
             $equipo->save();
     
             // Actualizar el equipo_id de cada jugador seleccionado
@@ -99,6 +131,10 @@ class EquipoController extends Controller
             'nombre' => 'required|string|max:66',
             'descripcion' => 'required|string|max:255',
             'imagen_id' => 'nullable|exists:imagenes,id',
+            'imagen' =>  'mimes:jpg,png',
+        ], [
+            'imagen.mimes' => 'La imagen debe ser un archivo de tipo: jpg, png.',
+            'imagen.max' => 'La imagen no debe exceder los 2MB.',
         ]);
 
         try {
@@ -112,6 +148,17 @@ class EquipoController extends Controller
             
             $equipo->slug = Str::slug($equipo->nombre);
             $equipo->usuario_id = auth()->id();
+
+            if($request->has('imagen')){
+                $nombreArchivo = time() . '.' . $request->imagen->extension();
+                $ruta = $request->imagen->storeAs('imagenes', $nombreArchivo, 'public');
+        
+                $imagen = new Imagen();
+                $imagen->url = $ruta;
+                $imagen->save();
+                
+                $equipo->imagen_id=$imagen->id;
+            }
             $equipo->save();
 
 

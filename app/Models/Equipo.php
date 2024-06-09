@@ -31,4 +31,7 @@ class Equipo extends Model
     {
         return $this->hasMany(Participacion::class, 'id_equipo');
     }
+    public function imagen(){
+        return $this->hasOne(Imagen::class,'id','imagen_id');
+    }
 }

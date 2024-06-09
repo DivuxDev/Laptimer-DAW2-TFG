@@ -20,25 +20,25 @@ class CampeonatoSeeder extends Seeder
         // Crear algunos campeonatos
         $campeonato1 = Campeonato::create([
             'nombre' => 'Campeonato de Verano',
+            'descripcion' => 'Descripcion basica del Campeonato de Verano',
             'fecha' => '2024-06-01',
             'usuario_id' => 1,
-            'en_curso' => true,
             'slug' => Str::slug('Campeonato de Verano'),
         ]);
 
         $campeonato2 = Campeonato::create([
             'nombre' => 'Campeonato de Invierno',
+            'descripcion' => 'Descripcion basica del Campeonato de Invierno',
             'fecha' => '2024-12-01',
             'usuario_id' => 1,
-            'en_curso' => false,
             'slug' => Str::slug('Campeonato de Invierno'),
         ]);
 
         $campeonato3 = Campeonato::create([
             'nombre' => 'Campeonato de Primavera',
+            'descripcion' => 'Descripcion basica del Campeonato de Primavera',
             'fecha' => '2024-03-01',
             'usuario_id' => 1,
-            'en_curso' => false,
             'slug' => Str::slug('Campeonato de Primavera'),
         ]);
 

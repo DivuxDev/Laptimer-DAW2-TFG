@@ -11,7 +11,7 @@
             x-scale: 1.1;
         }
         .banner {
-            background: linear-gradient(135deg, #b31217, #e52d27);
+            background: var(--primary-color-1);
             color: white;
             padding: 50px 0;
             text-align: center;
@@ -43,15 +43,20 @@
         }
     </style>
     <h1 class="text-center">Nuestros productos</h1>
-    <div class="row my-4">
-        <!-- Producto 1 -->
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://via.placeholder.com/150" class="card-img-top" alt="Producto 1">
-                <div class="card-body">
-                    <h5 class="card-title">Laptimer DPT V1</h5>
-                    <p class="card-text">95.00€</p>
-                    <a href="#" class="btn btn-danger">Agregar al carrito</a>
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="https://via.placeholder.com/600x700" alt="Product Image" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                <h2>DPT Laptimer V1.0</h2>
+                <h4>95.00€</h4>
+                <p>¡Presentamos el Laptimer DPT V1, el cronómetro definitivo para todos los entusiastas de las carreras! Diseñado para ofrecer precisión, facilidad de uso y robustez, el Laptimer DPT V1 es el compañero perfecto para tus competencias de velocidad, ya sea en una pista profesional o en una carrera de aficionados.</p>
+                <div class="input-group mb-3" style="max-width: 300px;">
+                    <input type="number" class="form-control" value="1">
+                    <button class="btn btn-outline-secondary" type="button">
+                        <i class="bi bi-cart"></i> Añadir al carrito
+                    </button>
                 </div>
             </div>
         </div>

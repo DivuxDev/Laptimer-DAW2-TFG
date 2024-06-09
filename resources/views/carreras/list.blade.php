@@ -43,6 +43,18 @@
 </head>
 
 <div class="container mx-auto p-4">
+    @if (session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error:</strong> {{ session('error') }}.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+    @if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Confirmación:</strong> {{ session('success') }}.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
     <h1 class="text-4xl font-bold mb-4">Carreras</h1>
     <hr>
     @if (count($carreras) > 0)
