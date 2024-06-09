@@ -2,19 +2,17 @@
 @section('titulo', 'Editar carrera')
 @section('contenido')
 <h1 class="text-center my-4">Editar carrera</h1>
-
-@if ($errors->any())
-    <div class="alert alert-danger" role="alert">
-        <strong>Hubo errores en el formulario:</strong>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
 <div class="container">
+    @if ($errors->any())
+        <div class="alert alert-danger" role="alert">
+            <strong>Hubo errores en el formulario:</strong>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="{{ route('carreras.update', $carrera) }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
         @csrf
         @method('PUT')
@@ -83,9 +81,6 @@
     </form>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#jugadores').select2();

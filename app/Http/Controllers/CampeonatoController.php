@@ -55,7 +55,6 @@ class CampeonatoController extends Controller
      */
     public function store(Request $request)
     {
-        
         // Validación de los datos entrantes
         $request->validate([
             'nombre' => 'required|string|max:66',
@@ -68,7 +67,6 @@ class CampeonatoController extends Controller
             'imagen.mimes' => 'La imagen debe ser un archivo de tipo: jpg, png.',
             'imagen.max' => 'La imagen no debe exceder los 2MB.',
         ]);
-
         try {
             DB::beginTransaction();
 
@@ -79,7 +77,6 @@ class CampeonatoController extends Controller
             $campeonato->descripcion = $request->input('descripcion');               
             $campeonato->slug = Str::slug($campeonato->nombre);
             $campeonato->fecha = $request->input('fecha');
-
             $campeonato->usuario_id = auth()->id();
            
             if($request->has('imagen')){
@@ -93,8 +90,6 @@ class CampeonatoController extends Controller
                 $campeonato->imagen_id=$imagen->id;
             }
             $campeonato->save();
-
-
             // Asociar carreras al campeonato
             if ($request->has('carreras')) {
                 $carrerasIds = $request->input('carreras');
@@ -105,9 +100,7 @@ class CampeonatoController extends Controller
                     ]);
                 }
             }
-             
             DB::commit();
-
             // Redirigir a la vista de detalle del campeonat con un mensaje de éxito
             return redirect()->route('campeonatos.show', ['campeonato' => $campeonato])->with('success', 'campeonato creado exitosamente');
         } catch (PDOException $e) {
@@ -117,7 +110,7 @@ class CampeonatoController extends Controller
         }catch (Exception $e) {
             DB::rollBack();
 
-            return redirect()->route('carreras.list')->with('error', 'Error de general al editar el campeonato ' . $e->getMessage());
+            return redirect()->route('carreras.list')->with('error', 'Error de general al crear el campeonato ' . $e->getMessage());
         }
     }
     public function update(Request $request, Campeonato $campeonato)

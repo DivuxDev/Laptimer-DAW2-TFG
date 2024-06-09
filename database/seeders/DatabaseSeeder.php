@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        DB::table('usuarios')->delete();
+        DB::table('users')->delete();
         $this->call(UserSeeder::class);
         $this->call(EquipoSeeder::class);
         $this->call(DispositivoSeeder::class);

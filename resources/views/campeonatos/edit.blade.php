@@ -4,18 +4,18 @@
 
 <h1 class="text-center my-4">Editar campeonato  {{$campeonato->nombre}}</h1>
 
-@if ($errors->any())
-    <div class="alert alert-danger" role="alert">
-        <strong>Hubo errores en el formulario:</strong>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
 <div class="container">
+    @if ($errors->any())
+        <div class="alert alert-danger" role="alert">
+            <strong>Hubo errores en el formulario:</strong>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="{{ route('campeonatos.update',$campeonato) }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
         @method('put')
         @csrf
@@ -67,9 +67,6 @@
     </form>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#carreras').select2();

@@ -2,6 +2,7 @@
 @section('titulo', 'Editar coche')
 @section('contenido')
 <h1 class="text-center my-4">Editar coche: {{ $coche->modelo }}</h1>
+
 @if ($errors->any())
     <div class="alert alert-danger" role="alert">
         <strong>Hubo errores en el formulario:</strong>
@@ -52,7 +53,6 @@
     </form>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     // Bootstrap form validation
     (function () {
