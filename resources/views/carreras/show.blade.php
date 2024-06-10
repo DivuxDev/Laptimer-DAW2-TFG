@@ -36,6 +36,7 @@
                         <table id="carreraTable" class="table table-striped table-hover">
                             <thead>
                                 <tr>
+                                    <th>Puesto</th>
                                     <th>Dorsal</th>
                                     <th>Jugador</th>
                                     <th>Equipo</th>
@@ -44,14 +45,21 @@
                                     <th>Tiempo total</th>
                                     <th>Tiempo medio</th>
                                     <th>Detalle</th>
-
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($carrera->participaciones as $participacion)
-                                
+                                @php
+                                    $counter = 1;
+                                    $participacionesOrdenadas = $carrera->participaciones->sortBy(function($participacion) {
+                                        $tiempos = $participacion->tiempos->pluck('tiempo')->map(function($item) {
+                                            return (float) $item;
+                                        });
+                                        return $tiempos->sum();
+                                    });
+                                @endphp
+                                @foreach ($participacionesOrdenadas as $participacion)
                                     @php
-                                        $jugador=$participacion->jugador;
+                                        $jugador = $participacion->jugador;
                                         $tiempos = $participacion->tiempos->pluck('tiempo')->map(function($item) {
                                             return (float) $item;
                                         });
@@ -61,6 +69,7 @@
                                         $tiempoMedio = $tiempos->avg();
                                     @endphp
                                     <tr>
+                                        <td>{{ $counter++ }}</td>
                                         <td>#{{ $participacion->jugador->id }}</td>
                                         <td>{{ $participacion->jugador->nombre }}</td>
                                         <td>{{ $participacion->jugador->equipo ? $participacion->jugador->equipo->nombre : 'N/A' }}</td>
@@ -72,7 +81,6 @@
                                             <i class="fas fa-eye"></i>
                                         </a></td>
                                     </tr>
-
                                 @endforeach
                             </tbody>
                         </table>
@@ -101,7 +109,7 @@
                     @if ($carrera->imagen)
                     <a href="#full-image"><img src="{{ asset('storage/' . $carrera->imagen->url) }}" alt="Imagen de la carrera" class="img-fluid"></a>
                     <div id="full-image" class="full-screen-img">
-                        <a href="#"><img src="{{  asset('storage/' . $carrera->imagen->url) }}" alt="Imagen de la carrera"></a>
+                        <a href="#"><img src="{{ asset('storage/' . $carrera->imagen->url) }}" alt="Imagen de la carrera"></a>
                     </div>
                     @else
                         <p>No hay imagen disponible.</p>
@@ -116,6 +124,7 @@
 <script>
     $(document).ready(function() {
         $('#carreraTable').DataTable({
+            "order": [[6, "asc"]],
             "language": {
                 "decimal": "",
                 "emptyTable": "No hay información",

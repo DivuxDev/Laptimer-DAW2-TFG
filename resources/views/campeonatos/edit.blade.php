@@ -3,7 +3,10 @@
 @section('contenido')
 
 <h1 class="text-center my-4">Editar campeonato  {{$campeonato->nombre}}</h1>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 <div class="container">
     @if ($errors->any())
@@ -20,7 +23,7 @@
         @method('put')
         @csrf
         <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre del campeonato:</label>
+            <label for="nombre" class="form-label">Nombre del campeonato: *</label>
             <input type="text" id="nombre" name="nombre" class="form-control" value="{{$campeonato->nombre}}" required>
             <div class="invalid-feedback">
                 Por favor, ingrese el nombre del campeonato.
@@ -28,7 +31,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="descripcion" class="form-label">Descripcion:</label>
+            <label for="descripcion" class="form-label">Descripcion: *</label>
             <textarea id="descripcion" name="descripcion" class="form-control" required>{{$campeonato->descripcion}}</textarea>
             <div class="invalid-feedback">
                 Por favor, seleccione una descripcion.
@@ -36,7 +39,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="fecha" class="form-label">Fecha:</label>
+            <label for="fecha" class="form-label">Fecha: *</label>
             <input type="date" id="fecha" name="fecha" class="form-control" value="{{$campeonato->fecha}}" required>
             <div class="invalid-feedback">
                 Por favor, seleccione una fecha.

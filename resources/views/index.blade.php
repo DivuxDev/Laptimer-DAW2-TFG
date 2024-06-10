@@ -66,17 +66,17 @@
         </div>
         <div class="row text-center">
             <div class="col-md-4">
-                <div class="icon mb-3">&#x1F3C1;</div>
+                <div class="icon mb-3"><i class="fas fa-flag-checkered"></i></div>
                 <h4>Como empezamos</h4>
                 <p>DPT es una empresa que empezó su desarrollo en manos de un estudiante de grado superior como proyecto de fin de curso realizando un Laptimer para drones y coches.</p>
             </div>
             <div class="col-md-4">
-                <div class="icon mb-3">&#x1F50A;</div>
+                <div class="icon mb-3"><i class="fas fa-question"></i></div>
                 <h4>Por qué DPT?</h4>
                 <p>El nombre de la empresa viene de su creador, son las iniciales de su nombre y su primer apellido junto con la palabra tecnología, ya que esta empresa centra su desarrollo en dispositivos inteligentes.</p>
             </div>
             <div class="col-md-4">
-                <div class="icon mb-3">&#x270F;&#xFE0F;</div>
+                <div class="icon mb-3"><i class="fas fa-handshake"></i></div>
                 <h4>Productos</h4>
                 <p>En DPT todos los productos de la tienda son desarrollados, realizados y comprobados a mano, además, tratamos un soporte en la mayor brevedad posible.</p>
             </div>

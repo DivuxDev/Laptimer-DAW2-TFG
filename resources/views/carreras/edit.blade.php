@@ -2,6 +2,10 @@
 @section('titulo', 'Editar carrera')
 @section('contenido')
 <h1 class="text-center my-4">Editar carrera</h1>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <div class="container">
     @if ($errors->any())
         <div class="alert alert-danger" role="alert">
@@ -18,7 +22,7 @@
         @method('PUT')
 
         <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre de la carrera:</label>
+            <label for="nombre" class="form-label">Nombre de la carrera: *</label>
             <input type="text" id="nombre" name="nombre" class="form-control" value="{{ old('nombre', $carrera->nombre) }}" required>
             <div class="invalid-feedback">
                 Por favor, ingrese el nombre de la carrera.
@@ -26,7 +30,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="vueltas" class="form-label">Vueltas:</label>
+            <label for="vueltas" class="form-label">Vueltas: *</label>
             <input type="number" min="0" max="999" id="vueltas" name="vueltas" class="form-control" value="{{ old('vueltas', $carrera->vueltas) }}" required>
             <div class="invalid-feedback">
                 Por favor, ingrese el número de vueltas.
@@ -39,7 +43,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="fecha" class="form-label">Fecha:</label>
+            <label for="fecha" class="form-label">Fecha: *</label>
             <input type="date" id="fecha" name="fecha" class="form-control" value="{{ old('fecha', $carrera->fecha) }}" required>
             <div class="invalid-feedback">
                 Por favor, seleccione una fecha.

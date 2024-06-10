@@ -54,7 +54,6 @@
                         {{ Auth::user()->name }} <i class="fas fa-user-circle"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                        <li><a class="dropdown-item" href="#">Perfil</a></li>
                         <li><a class="dropdown-item" href="{{route('dispositivos.index')}}">Dispositivos</a></li>
                         <li><a class="dropdown-item" href="{{ route('logout') }}" 
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
