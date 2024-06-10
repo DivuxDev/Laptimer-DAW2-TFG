@@ -5,7 +5,6 @@
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
         }
         .card-body:hover{
             x-scale: 1.1;
@@ -41,12 +40,81 @@
             font-size: 2em;
             margin-bottom: 10px;
         }
+        .icon {
+            font-size: 40px;
+        }
+        .section-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--primary-color-1);
+        }
+        .divider {
+            width: 50px;
+            height: 4px;
+            background-color: var(--primary-color-1);
+            margin: 0 auto;
+        }
+        .products{
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--primary-color-1);        }
     </style>
-    <h1 class="text-center">Nuestros productos</h1>
+     <div class="container mt-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title">SOBRE DPT</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="icon mb-3"><i class="fas fa-flag-checkered"></i></div>
+                <h4>Como empezamos</h4>
+                <p>DPT es una empresa que empezó su desarrollo en manos de un estudiante de grado superior como proyecto de fin de curso realizando un Laptimer para drones y coches.</p>
+            </div>
+            <div class="col-md-4">
+                <div class="icon mb-3"><i class="fas fa-question"></i></div>
+                <h4>Por qué DPT?</h4>
+                <p>El nombre de la empresa viene de su creador, son las iniciales de su nombre y su primer apellido junto con la palabra tecnología, ya que esta empresa centra su desarrollo en dispositivos inteligentes.</p>
+            </div>
+            <div class="col-md-4">
+                <div class="icon mb-3"><i class="fas fa-handshake"></i></div>
+                <h4>Productos</h4>
+                <p>En DPT todos los productos de la tienda son desarrollados, realizados y comprobados a mano, además, tratamos un soporte en la mayor brevedad posible.</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="banner">
+        <h1>CARACTERÍSTICAS DEL PRODUCTO</h1>
+        <div class="line"></div>
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-th"></i>
+                <p>Perfecto para uso doméstico</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-compress"></i>
+                <p>Administración y tamaño reducidos</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-cogs"></i>
+                <p>Fácil Configuración</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-hammer"></i>
+                <p>Construcción 100% artesanal</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-handshake"></i>
+                <p>Soporte personalizado</p>
+            </div>
+        </div>
+    </div>
+    <h2 class="text-center section-title my-5">Nuestros productos</h2>
+    <div class="divider"></div>
     <div class="container my-3">
         <div class="row">
             <div class="col-md-6">
-                <img src="https://via.placeholder.com/600x700" alt="Product Image" class="img-fluid">
+                <img src="{{ asset('img/producto.png')}}" alt="Product Image" class="img-fluid">
             </div>
             <div class="col-md-6">
                 <h2>DPT Laptimer V1.0</h2>
@@ -62,31 +130,6 @@
         </div>
     </div>
 
-</div>
-<div class="banner">
-    <h1>CARACTERÍSTICAS DEL PRODUCTO</h1>
-    <div class="line"></div>
-    <div class="features">
-        <div class="feature">
-            <i class="fas fa-th"></i>
-            <p>Perfecto para uso doméstico</p>
-        </div>
-        <div class="feature">
-            <i class="fas fa-compress"></i>
-            <p>Administración y tamaño reducidos</p>
-        </div>
-        <div class="feature">
-            <i class="fas fa-cogs"></i>
-            <p>Fácil Configuración</p>
-        </div>
-        <div class="feature">
-            <i class="fas fa-hammer"></i>
-            <p>Construcción 100% artesanal</p>
-        </div>
-        <div class="feature">
-            <i class="fas fa-handshake"></i>
-            <p>Soporte personalizado</p>
-        </div>
     </div>
-</div>
+
 @endsection

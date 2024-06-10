@@ -3,7 +3,10 @@
 @section('contenido')
 
 <h1 class="text-center my-4">Editar Equipo</h1>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <div class="container">
     
     @if ($errors->any())
@@ -21,7 +24,7 @@
         @method('PUT')
 
         <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre del equipo:</label>
+            <label for="nombre" class="form-label">Nombre del equipo: *</label>
             <input type="text" id="nombre" name="nombre" class="form-control" value="{{ old('nombre', $equipo->nombre) }}" required>
             <div class="invalid-feedback">
                 Por favor, ingrese el nombre del equipo.
@@ -29,7 +32,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="descripcion" class="form-label">Descripción:</label>
+            <label for="descripcion" class="form-label">Descripción: *</label>
             <textarea id="descripcion" name="descripcion" class="form-control" rows="3" required>{{ old('descripcion', $equipo->descripcion) }}</textarea>
             <div class="invalid-feedback">
                 Por favor, ingrese una descripción.
@@ -42,7 +45,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="miembros" class="form-label">Miembros:</label>
+            <label for="miembros" class="form-label">Miembros: *</label>
             <select name="miembros[]" id="miembros" class="form-control" multiple="multiple" required>
                 @foreach($miembros as $miembro)
                     <option value="{{ $miembro->id }}" {{ in_array($miembro->id, $equipo->jugadores->pluck('id')->toArray()) ? 'selected' : '' }}>
@@ -58,7 +61,7 @@
 
 
         <div class="d-grid">
-            <button type="submit" class="btn btn-primary btn-block">Guardar Cambios</button>
+            <button type="submit" class="btn btn-primary btn-block">Editar</button>
         </div>
     </form>
 </div>

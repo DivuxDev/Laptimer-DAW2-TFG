@@ -117,15 +117,13 @@ class EquipoController extends Controller
         }
     }
     
-
     /**
      * Recoge los datos de un Request y crean el objeto de tipo coche que se el introduce por parametros
-     * @param Request $request Request personalizado para coche la carrera
-     * @return mixed Devuelve la vista en detalle del coche creado
+     * @param Request $request Request personalizado para equipo
+     * @return mixed Devuelve la vista en detalle del equipo creado
      */
     public function store(Request $request)
     {
-        
         // Validación de los datos entrantes
         $request->validate([
             'nombre' => 'required|string|max:66',
@@ -136,31 +134,26 @@ class EquipoController extends Controller
             'imagen.mimes' => 'La imagen debe ser un archivo de tipo: jpg, png.',
             'imagen.max' => 'La imagen no debe exceder los 2MB.',
         ]);
-
         try {
             DB::beginTransaction();
 
             $user = Auth::user();
-            // Crear un nuevo coche
+            // Crear un nuevo equipo
             $equipo = new Equipo();
             $equipo->nombre = $request->input('nombre');
             $equipo->descripcion = $request->input('descripcion');
-            
             $equipo->slug = Str::slug($equipo->nombre);
             $equipo->usuario_id = auth()->id();
 
             if($request->has('imagen')){
                 $nombreArchivo = time() . '.' . $request->imagen->extension();
                 $ruta = $request->imagen->storeAs('imagenes', $nombreArchivo, 'public');
-        
                 $imagen = new Imagen();
                 $imagen->url = $ruta;
                 $imagen->save();
-                
                 $equipo->imagen_id=$imagen->id;
             }
             $equipo->save();
-
 
             if($request->has('miembros')){
                 $jugadoresIds = $request->input('miembros');
@@ -170,9 +163,7 @@ class EquipoController extends Controller
                     $jugador->save();
                 }
             }
-             
             DB::commit();
-
             // Redirigir a la vista de detalle del coche con un mensaje de éxito
             return redirect()->route('equipos.show', ['equipo' => $equipo])->with('success', 'equipo creado exitosamente');
         } catch (PDOException $e) {

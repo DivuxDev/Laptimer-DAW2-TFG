@@ -121,8 +121,6 @@ class JugadorController extends Controller
      */
     public function store(Request $request)
     {
-        
-        // Validar los datos del formulario
         $request->validate([
             'nombre' => 'required|string|max:60',
             'fecha' => 'required|date',
@@ -133,7 +131,6 @@ class JugadorController extends Controller
             'imagen.mimes' => 'La imagen debe ser un archivo de tipo: jpg, png.',
             'imagen.max' => 'La imagen no debe exceder los 2MB.',
         ]);
-
         try {
             DB::beginTransaction();
 
@@ -146,15 +143,11 @@ class JugadorController extends Controller
             if($request->has('imagen')){
                 $nombreArchivo = time() . '.' . $request->imagen->extension();
                 $ruta = $request->imagen->storeAs('imagenes', $nombreArchivo, 'public');
-        
                 $imagen = new Imagen();
                 $imagen->url = $ruta;
                 $imagen->save();
-                
                 $jugador->imagen_id=$imagen->id;
             }
-
-
             //guardo el ID del equipo seleccionado
             if($request->has('equipos')){
                 $jugador->equipo_id = $request->equipos;
@@ -171,12 +164,10 @@ class JugadorController extends Controller
             return redirect()->route('jugadores.show', ['jugador' => $jugador])->with('success', 'Jugador creado exitosamente');
         } catch (PDOException $e) {
             DB::rollBack();
-
             // Redirigir a la página anterior con un mensaje de error
             return redirect()->route('jugadores.index')->with('error', 'Error de BD al crear el jugador. Detalles: ' . $e->getMessage());
         }catch (Exception $e) {
             DB::rollBack();
-
             return redirect()->route('jugadores.index')->with('error', 'Error general al crear el jugador ' . $e->getMessage());
         }
     }

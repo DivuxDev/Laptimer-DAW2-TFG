@@ -38,7 +38,7 @@ class User extends Authenticatable
     {
         return 'slug';
     }
-    protected $table = "usuarios";
+    protected $table = "users";
     /**
      * The attributes that should be hidden for serialization.
      *

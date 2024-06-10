@@ -2,10 +2,6 @@
 @section('titulo', 'Listado de Carreras')
 @section('contenido')
 <head>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
     <style>
         #carrerasTable_filter label{
             display: none;
@@ -55,7 +51,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
-    <h1 class="text-4xl font-bold mb-4">Carreras</h1>
+    <h1 class="text-4xl font-bold mb-4">Listado de carreras</h1>
     <hr>
     @if (count($carreras) > 0)
     <div class="table-responsive">
@@ -109,7 +105,7 @@
     @else
     <p class="text-center">No existen carreras</p>
     @endif
-        <h1 class="text-4xl font-bold mb-4">Campeonatos</h1>
+        <h1 class="text-4xl font-bold mb-4">Listado de campeonatos</h1>
     <hr>
     @if (count($campeonatos) > 0)
     <div class="table-responsive">

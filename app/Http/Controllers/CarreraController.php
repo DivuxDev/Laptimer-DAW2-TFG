@@ -18,7 +18,10 @@ use Exception;
 
 class CarreraController extends Controller
 {
-  
+   /**
+     * Devuelve el lista de carreras
+     * @return mixed devuelve una vista
+     */
     public function index()
     {
         // Obtener el usuario actualmente logueado
@@ -28,6 +31,10 @@ class CarreraController extends Controller
     return view('carreras.index', ['carreras' => $carreras]);
     }
 
+    /**
+     * Devuelve el lista de campeonatos y carreras
+     * @return mixed devuelve una vista
+     */
     public function list()
     {
         // Obtener el usuario actualmente logueado
@@ -38,11 +45,19 @@ class CarreraController extends Controller
     return view('carreras.list', ['carreras' => $carreras,'campeonatos' => $campeonatos]);
     }
 
+    /**
+     * Devuelve una vista en detalle de una carrera
+     * @return mixed devuelve una vista
+     */
     public function show(Carrera $carrera)
     {
         return view('carreras.show', ['carrera' => $carrera]);
     }
 
+    /**
+     * Devuelve la vista de rendimiento de un jugador
+     * @return mixed devuelve una vista
+     */
     public function performance(Carrera $carrera,Jugador $jugador)
     {
     // Fetch the performance data
