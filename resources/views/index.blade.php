@@ -114,7 +114,7 @@
     <div class="container my-3">
         <div class="row">
             <div class="col-md-6">
-                <img src="https://via.placeholder.com/600x700" alt="Product Image" class="img-fluid">
+                <img src="{{ asset('img/producto.png')}}" alt="Product Image" class="img-fluid">
             </div>
             <div class="col-md-6">
                 <h2>DPT Laptimer V1.0</h2>
